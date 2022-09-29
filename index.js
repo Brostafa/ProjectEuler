@@ -37,5 +37,5 @@ const solution = (maxVal) => {
 }
 
 console.log(
-  solution(1000)
+  solution(MAX_NUM)
 )
