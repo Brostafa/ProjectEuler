@@ -18,7 +18,11 @@
 const PRIME_INDEX = 10001
 
 const isPrime = n => {
-  for (let i = 2; i < n; i++) {
+  if (n === 2) return true
+  if (n % 2 === 0) return false
+
+  // optimization: all prime numbers are odd except 2
+  for (let i = 3; i < n; i += 2) {
     if (n % i === 0) return false
   }
 
