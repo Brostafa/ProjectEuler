@@ -20,6 +20,6 @@ const solution = () => {
 }
 
 const now = Date.now()
-const answer = solution(RANGE)
+const answer = solution()
 
 console.log(`Execution Time: ${Date.now() - now}ms\nAnswer: ${answer}`)
