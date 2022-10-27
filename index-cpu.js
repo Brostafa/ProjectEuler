@@ -23,56 +23,22 @@
  * https://projecteuler.net/problem=14
  */
 
-/**
- * @NOTE
- * index.js: use memory to reduce amount of computation needed (FASTER but uses more memory). Can compute uptill 1e7 before it runs out of memory
- * index-cpu.js: uses CONSTANT memory (slower but constant/small memory footprint). Can compute almost any arbitrary MAX_NUM
- * 
- * index.js is faster by 2-3X than index-simple.js
- */
-
 const isEven = n => n % 2 === 0
-// If you will any value bigger than 1e7 then use index.simple.js as this script will run out of memory
-// due to so a really big cache size.
-const MAX_NUM = 1e6 // million
-// Create cache to store all already-done computations
-let CACHE = {}
+const MAX_NUM = 1e8 // million
 
 const getChainLength = startingNum => {
-  if (typeof CACHE[startingNum] !== 'undefined') {
-    return CACHE[startingNum]
-  }
-
   let currentNum = startingNum
   let chainLen = 1
-  let currentNums = []
 
   while (currentNum !== 1) {
-    // If we have that result pre-calculated then use the cache
-    if (CACHE[currentNum]) {
-      chainLen += CACHE[currentNum]
-
-      break
-    }
-    
     if (isEven(currentNum)) {
       currentNum /= 2
     } else {
       currentNum = (3 * currentNum) + 1
     }
 
-    currentNums.push(currentNum)
     chainLen++
   }
-
-  // We can use index to figure out chain length for that num
-  currentNums.forEach((num, index) => {
-    const chainLenForN = currentNums.length - index
-
-    CACHE[num] = chainLenForN
-  })
-
-  CACHE[startingNum] = chainLen
   
   return chainLen
 }
@@ -95,5 +61,6 @@ const solution = maxNum => {
 
 const now = Date.now()
 const answer = solution(MAX_NUM)
-
+const used = process.memoryUsage().heapUsed / 1024 / 1024;
+console.log(`The script uses approximately ${Math.round(used * 100) / 100} MB`);
 console.log(`Execution Time: ${Date.now() - now}ms\nAnswer: ${answer}`)
