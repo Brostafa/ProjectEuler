@@ -35,6 +35,6 @@ const solution = (k) => {
 }
 
 const now = Date.now()
-const answer = solution(20)
+const answer = solution(GRID_SIZE)
 
 console.log(`Execution Time: ${Date.now() - now}ms\nAnswer: ${answer}`)
